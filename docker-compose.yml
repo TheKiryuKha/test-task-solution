@@ -17,9 +17,9 @@ services:
         image: mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
-            MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
-            MYSQL_USER: ${MYSQL_USER:-app}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
         volumes:
             - database_data:/var/lib/mysql
         ports:

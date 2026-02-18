@@ -19,6 +19,11 @@ final class Tag extends Model
     /** @use HasFactory<TagFactory> */
     use HasFactory;
 
+    public static function GetByName(string $name): self
+    {
+        return self::query()->firstOrCreate(['name' => $name]);
+    }
+
     /**
      * @return BelongsToMany<Task, $this, Pivot>
      */

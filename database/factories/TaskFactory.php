@@ -24,4 +24,16 @@ final class TaskFactory extends Factory
             'due_at' => fake()->dateTime(),
         ];
     }
+
+    // public function fixtures(): array
+    // {
+    //     return [
+    //         'title' => fake()->title(),
+    //         'is_done' => false,
+    //         'due_at' => fake()->dateTime(),
+    //         'tags' => [
+    //             Tag::factory()->create()->title
+    //         ]
+    //     ];
+    // }
 }
