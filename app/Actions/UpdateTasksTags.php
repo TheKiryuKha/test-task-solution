@@ -8,7 +8,7 @@ use App\Models\Tag;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 
-final readonly class AttachTagsToTask
+final readonly class UpdateTasksTags
 {
     /**
      * @param  string[]  $tags

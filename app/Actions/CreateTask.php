@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 final readonly class CreateTask
 {
     public function __construct(
-        private AttachTagsToTask $action
+        private UpdateTasksTags $action
     ) {}
 
     public function handle(TaskPayload $dto): Task
