@@ -1,0 +1,35 @@
+services:
+    app:
+        user: app
+        build:
+            context: ./docker/php
+            args:
+                USER_ID: ${USER_ID:-1000}
+        ports:
+            - "8337:8337"
+        volumes:
+            - .:/app:rw
+        depends_on:
+            database:
+                condition: service_healthy
+                
+    database:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-admin}
+            MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+            MYSQL_USER: ${MYSQL_USER:-app}
+        volumes:
+            - database_data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+            interval: 5s
+            timeout: 5s
+            retries: 10
+            start_period: 10s
+
+volumes:
+    database_data:
