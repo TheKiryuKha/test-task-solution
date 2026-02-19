@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Actions\CreateTask;
+use App\Actions\DeleteTask;
 use App\Actions\EditTask;
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\EditTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 final readonly class TaskController
 {
@@ -25,5 +27,12 @@ final readonly class TaskController
         $action->handle($task, $request->payload());
 
         return new TaskResource($task);
+    }
+
+    public function destroy(Task $task, DeleteTask $action): JsonResponse
+    {
+        $action->handle($task);
+
+        return response()->json(status: 204);
     }
 }
