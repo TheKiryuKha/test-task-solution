@@ -32,6 +32,13 @@ final readonly class TaskController
         return new TaskResource($task);
     }
 
+    public function show(Task $task): TaskResource
+    {
+        $task->load('tags');
+
+        return new TaskResource($task);
+    }
+
     public function update(Task $task, EditTaskRequest $request, EditTask $action): TaskResource
     {
         $action->handle($task, $request->payload());
