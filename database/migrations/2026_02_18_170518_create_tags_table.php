@@ -20,6 +20,9 @@ return new class extends Migration
             $table->id();
             $table->integer('task_id');
             $table->integer('tag_id');
+
+            $table->index(['task_id', 'tag_id']);
+            $table->unique(['task_id', 'tag_id']);
         });
     }
 };
