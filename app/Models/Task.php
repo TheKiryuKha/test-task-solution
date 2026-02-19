@@ -24,6 +24,16 @@ final class Task extends Model
     /** @use HasFactory<TaskFactory> */
     use HasFactory;
 
+    public function casts(): array
+    {
+        return [
+            'is_done' => 'boolean',
+            'due_at' => 'datetime',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
+
     /**
      * @return BelongsToMany<Tag, $this, Pivot>
      */
