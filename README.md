@@ -1,35 +1,91 @@
-# thekiryukha laravel template
-An ultra-strict, type-safe Laravel skeleton engineered for developers who refuse to compromise on code quality. This opinionated starter kit enforces rigorous development standards through meticulous tooling configuration and architectural decisions that prioritize type safety, immutability, and fail-fast principles.
+# Laravel Task Management API
 
-## What is in the box
+A RESTful API for managing tasks with tags, built with Laravel 12.
 
-* 100% Type Coverage: Every method, property, and parameter is explicitly typed
-* Zero Tolerance for Code Smells: Rector and PHPStan at maximum strictness catch issues before they become bugs
-* Immutable-First Architecture: Data structures favor immutability to prevent unexpected mutations
-* Fail-Fast Philosophy: Errors are caught at compile-time, not runtime
-* Automated Code Quality: Pre-configured tools ensure consistent, pristine code across your entire team
-* Just Better Laravel Defaults: Thanks to strict models, auto eager loading, immutable dates, and more...
+## Requirements
 
-## Installation guide
-Just run the following command in your terminal:
+- **PHP**: ^8.4.0
+- **Laravel**: ^12.52.0
+- **MySQL**: 8.0+ (via Docker)
+- **Docker** & **Docker Compose**
+- **Composer**: Latest version
 
+## Installation (Using Docker)
+
+1. Clone the repository
+
+2. Copy the environment file:
+```bash
+cp .env.example .env
 ```
-composer create-project thekiryukha/laravel your_app_name
+
+3. Start the Docker containers:
+```bash
+make dev
 ```
 
-## How to tweak this project for your own uses
+This command will:
+- Build and start the containers
+- Install Composer dependencies
+- Generate application key
+- Run migrations
 
-Since this is a template project, feel free to clone and modify it for your own needs. It serves as a good starter boilerplate
+4. Access the application at: **http://localhost:8337**
 
-## Find a bug?
+## Migrations & Seeders
 
-If you encounter any issues, please:
+### Running Migrations
 
-* Submit a pull request with your fixes (preferably following <a href=https://www.conventionalcommits.org/en/v1.0.0/>Conventional Commits</a>), or
-* Contact me on Telegram: <a href=https://t.me/mr_TheKiryuKha>@mr_TheKiryuKha</a>
+```bash
+make migrate
+```
 
-## Like this project?
+### Running Seeders
 
-If you're feeling generous, you can buy me a coffee -> *[link]*
+```bash
+make seed
+```
 
-*(just kidding ;)*
+## Testing
+
+### Run All Tests
+
+```bash
+make test
+```
+
+## API Request Examples
+
+### 1. Get All Tasks
+
+```bash
+curl -X GET http://localhost:8337/api/tasks \
+  -H "Accept: application/json"
+```
+
+### 2. Create a New Task
+
+```bash
+curl -X POST http://localhost:8337/api/tasks \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Complete the project",
+    "description": "Finish the Laravel task management API",
+    "is_done": false,
+    "tags": ["work", "urgent"]
+  }'
+```
+
+### 3. Update a Task
+
+```bash
+curl -X PUT http://localhost:8337/api/tasks/1 \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated task title",
+    "is_done": true,
+    "tags": ["completed", "work"]
+  }'
+```
