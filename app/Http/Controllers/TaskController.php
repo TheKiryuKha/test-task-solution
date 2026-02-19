@@ -11,10 +11,16 @@ use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\EditTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 final readonly class TaskController
 {
+    public function index(): AnonymousResourceCollection
+    {
+        return TaskResource::collection(Task::all());
+    }
+
     public function store(CreateTaskRequest $request, CreateTask $action): TaskResource
     {
         $task = $action->handle($request->payload());

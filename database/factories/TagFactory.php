@@ -20,7 +20,7 @@ final class TagFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->title(),
+            'name' => fake()->unique()->word(),
         ];
     }
 }
