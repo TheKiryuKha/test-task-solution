@@ -10,7 +10,7 @@ PHONY: help
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-dev: down build install up success-message console ## Initialize environment
+dev: down build install up migrate seed success-message console ## Initialize environment
 
 build: ## Build services.
 	${DC} build $(c)
@@ -35,12 +35,18 @@ console: ## Login in console.
 install: ## Install dependencies without running the whole application.
 	${DC_RUN} composer install
 
-fix:
+fix: ## Run all linters
 	${DC_RUN} composer fix
 
-test:
+test: ## Run all tests
 	${DC_RUN} composer test
 
 success-message:
 	@echo "You can now access the application at http://localhost:8337"
 	@echo "Good luck! 🚀"
+
+migrate: ## Run all migrations
+	${DC_RUN} php artisan migrate
+
+seed: ## Run all seeders
+	${DC_RUN} php artisan db:seed
