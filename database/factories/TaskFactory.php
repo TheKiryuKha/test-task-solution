@@ -21,19 +21,22 @@ final class TaskFactory extends Factory
     {
         return [
             'title' => fake()->title(),
+            'is_done' => false,
             'due_at' => fake()->dateTime(),
         ];
     }
 
-    // public function fixtures(): array
-    // {
-    //     return [
-    //         'title' => fake()->title(),
-    //         'is_done' => false,
-    //         'due_at' => fake()->dateTime(),
-    //         'tags' => [
-    //             Tag::factory()->create()->title
-    //         ]
-    //     ];
-    // }
+    public function is_done(bool $is_done): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'is_done' => $is_done,
+        ]);
+    }
+
+    public function title(string $title): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'title' => $title,
+        ]);
+    }
 }

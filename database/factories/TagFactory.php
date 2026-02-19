@@ -23,4 +23,11 @@ final class TagFactory extends Factory
             'name' => fake()->unique()->word(),
         ];
     }
+
+    public function name(string $name): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'name' => $name,
+        ]);
+    }
 }

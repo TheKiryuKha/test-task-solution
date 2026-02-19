@@ -9,16 +9,20 @@ use App\Actions\DeleteTask;
 use App\Actions\EditTask;
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\EditTaskRequest;
+use App\Http\Requests\GetTasksRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use App\Queries\GetTasks;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 final readonly class TaskController
 {
-    public function index(): AnonymousResourceCollection
+    public function index(GetTasksRequest $request, GetTasks $query): AnonymousResourceCollection
     {
-        return TaskResource::collection(Task::all());
+        $tasks = $query->get($request);
+
+        return TaskResource::collection($tasks);
     }
 
     public function store(CreateTaskRequest $request, CreateTask $action): TaskResource
